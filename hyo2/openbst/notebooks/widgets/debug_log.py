@@ -1,9 +1,7 @@
 import ipywidgets as widgets
-from IPython.display import  import display
+from IPython.display import display
 
 import logging
-
-from hyo2.abc.lib.logging import set_logging
 
 
 class OutputWidgetHandler(logging.Handler):
@@ -37,9 +35,30 @@ class OutputWidgetHandler(logging.Handler):
         self.out.clear_output()
 
 
-def widget_logger():
-    set_logging(ns_list=["hyo2.openbst", ])
-    logger = logging.getLogger(__name__)
-    handler = OutputWidgetHandler()
-    handler.setFormatter(logging.Formatter())
-    logger.addHandler(handler)
+ns_list=["hyo2.openbst", ]
+
+default_logging = logging.WARNING
+hyo2_logging = logging.INFO
+lib_logging = logging.DEBUG
+
+logging.basicConfig(
+    level=default_logging,
+    format="%(levelname)-9s %(name)s.%(funcName)s:%(lineno)d > %(message)s"
+)
+logging.getLogger("hyo2").propagate = False
+logging.getLogger("hyo2").setLevel(hyo2_logging)
+handler = OutputWidgetHandler()
+handler.setFormatter(logging.Formatter("%(levelname)-9s %(name)s.%(funcName)s:%(lineno)d > %(message)s"))
+logging.getLogger("hyo2").addHandler(handler)
+
+main_ns = "__main__"
+if ns_list is None:
+    ns_list = [main_ns, ]
+if main_ns not in ns_list:
+    ns_list.append(main_ns)
+
+for ns in ns_list:
+    # print(ns)
+    logging.getLogger(ns).setLevel(lib_logging)
+
+
