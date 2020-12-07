@@ -23,12 +23,12 @@ testing = TestingPaths(root_folder=Path(__file__).parents[3].resolve())
 
 bst = OpenBST(prj_name="test_fullrun", force_new=True).prj
 
-## Add a raw file to the project ##
+# ## Add a raw file to the project ##
 raw_path = testing.download_data_folder().joinpath('raw_reson', '20190730_144835.s7k')
 bst.add_raw(raw_path)
 bst.check_health()
 
-## Run the various methods ##
+# ## Run the various methods ##
 
 # Interp
 bst.parameters.interpolation.method_type = InterpEnum.simple_linear

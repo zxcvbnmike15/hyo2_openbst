@@ -3,7 +3,7 @@ import logging
 from netCDF4 import Dataset
 import numpy as np
 # noinspection PyPackageRequirements
-from ogr import osr
+from osgeo import osr
 
 from hyo2.openbst.lib.nc_helper import NetCDFHelper
 from hyo2.openbst.lib.raw.parsers.reson.dg_formats import ResonDatagrams

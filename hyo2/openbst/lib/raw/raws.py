@@ -3,7 +3,7 @@ import logging
 import os
 
 from netCDF4 import Dataset
-from ogr import osr
+from osgeo import osr
 from pathlib import Path
 
 from hyo2.openbst.lib.nc_helper import NetCDFHelper
